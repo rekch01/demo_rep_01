@@ -21,8 +21,17 @@
          <versioning_id>602776302</versioning_id>
       </row>
    </general_attributes>
+   <scripts>
+      <row>
+         <process>:SET &amp;RUNID# = ACTIVATE_UC_OBJECT(,,,,,PASS_VALUES,,)</process>
+      </row>
+   </scripts>
    <script_attributes>
       <row>
       </row>
    </script_attributes>
+   <rollback_definitions>
+      <row>
+      </row>
+   </rollback_definitions>
 </scri>
