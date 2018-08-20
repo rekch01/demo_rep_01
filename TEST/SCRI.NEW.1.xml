@@ -23,7 +23,7 @@
    </general_attributes>
    <scripts>
       <row>
-         <process>:SET &amp;RUNID# = ACTIVATE_UC_OBJECT(scri.1,,,,,PASS_VALUES,,)</process>
+         <process>:SET &amp;RUNID# = ACTIVATE_UC_OBJECT(,,,,,PASS_VALUES,,)</process>
       </row>
    </scripts>
    <script_attributes>
