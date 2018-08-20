@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jobi>
+   <metadata>
+      <row>
+         <version>12.2.0</version>
+      </row>
+   </metadata>
+   <general_attributes>
+      <row>
+         <minimum_ae_version>11.2</minimum_ae_version>
+         <child_flags>00000000000000000000000000000000</child_flags>
+         <last_runtimes>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</last_runtimes>
+         <name>JOBI.NEW.1</name>
+         <type>JOBI</type>
+         <versioning_id>-1460513052</versioning_id>
+      </row>
+   </general_attributes>
+   <documentation>
+      <row>
+         <_STR_DOCU><![CDATA[<?xml version="1.0" encoding="ISO-8859-15" standalone="no"?>
+<!DOCTYPE Content [
+<!ELEMENT Content ( #PCDATA | A1 )* >
+]>
+<Content>
+<A1>www.Christoph-Rekers.de&#13;
+file://c:\temp\UUU.txt&#13;
+&#13;
+http://localhost:\\c:\temp\UUU.txt</A1>
+</Content>
+]]></_STR_DOCU>
+      </row>
+   </documentation>
+</jobi>

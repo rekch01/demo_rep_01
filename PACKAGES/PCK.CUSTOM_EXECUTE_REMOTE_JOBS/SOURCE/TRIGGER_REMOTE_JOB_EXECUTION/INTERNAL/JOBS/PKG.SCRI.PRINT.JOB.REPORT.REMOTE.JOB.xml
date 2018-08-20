@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scri>
+   <metadata>
+      <row>
+         <version>12.2.0</version>
+      </row>
+   </metadata>
+   <general_attributes>
+      <row>
+         <minimum_ae_version>11.2</minimum_ae_version>
+         <auto_deactivation>A</auto_deactivation>
+         <child_flags>00000000000000000000000000000000</child_flags>
+         <ert>1</ert>
+         <last_runtimes>AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</last_runtimes>
+         <max_parallel_action>1</max_parallel_action>
+         <mrt_time>000000</mrt_time>
+         <name>PKG.SCRI.PRINT.JOB.REPORT.REMOTE.JOB</name>
+         <type>SCRI</type>
+         <inherit_output_filter>N</inherit_output_filter>
+         <queue>CLIENT_QUEUE</queue>
+         <description>Print Remote Job Report</description>
+         <versioning_id>-1319858638</versioning_id>
+      </row>
+   </general_attributes>
+   <scripts>
+      <row>
+         <process><![CDATA[:SET &StartReport# = 0
+:SET &RemoteJobError# = 0
+:SET &PrevRunID# = SYS_ACT_PREV_NR()
+
+:SET &HND# = PREP_PROCESS_REPORT(,&PrevRunID#, "ACT")
+:PROCESS &HND#
+:  SET &Line# = GET_PROCESS_LINE(&HND#)
+
+:  IF STR_FIND(&Line#, "Report from the remote job execution") > 0
+:    SET &StartReport# = 1
+:  ENDIF
+
+:  IF STR_FIND(&Line#, "End of the remote job execution") > 0
+:    SET &StartReport# = 0
+:  ENDIF
+
+:  IF &StartReport# = 1
+:    P &Line#
+:  ENDIF
+
+:  IF STR_FIND(&Line#, "###REMOTEJOB ERROR###") > 0
+:    SET &RemoteJobError# = 1
+:  ENDIF
+:ENDPROCESS
+
+:IF &RemoteJobError# = 1
+:  EXIT 1
+:ENDIF]]></process>
+      </row>
+   </scripts>
+   <script_attributes>
+      <row>
+         <activation_at_runtime>1</activation_at_runtime>
+      </row>
+   </script_attributes>
+   <rollback_definitions>
+      <row>
+      </row>
+   </rollback_definitions>
+</scri>

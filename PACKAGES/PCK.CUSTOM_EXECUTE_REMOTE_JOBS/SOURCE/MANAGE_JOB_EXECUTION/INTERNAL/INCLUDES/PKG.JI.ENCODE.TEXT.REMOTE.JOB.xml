@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jobi>
+   <metadata>
+      <row>
+         <version>12.2.0</version>
+      </row>
+   </metadata>
+   <general_attributes>
+      <row>
+         <minimum_ae_version>11.2</minimum_ae_version>
+         <child_flags>00000000000000000000000000000000</child_flags>
+         <last_runtimes>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</last_runtimes>
+         <name>PKG.JI.ENCODE.TEXT.REMOTE.JOB</name>
+         <type>JOBI</type>
+         <description>Encode text for REST parameter</description>
+         <versioning_id>1208140538</versioning_id>
+      </row>
+   </general_attributes>
+   <scripts>
+      <row>
+         <process><![CDATA[:SET &I_Line# = STR_SUBSTITUTE( &I_Line#, """", "#DQ#")
+:SET &I_Line# = STR_SUBSTITUTE( &I_Line#, "\", "#BS#")
+:SET &I_Line# = STR_SUBSTITUTE( &I_Line#, "{", "#CO#")
+:SET &I_Line# = STR_SUBSTITUTE( &I_Line#, "}", "#CC#")
+:SET &I_Line# = STR_SUBSTITUTE( &I_Line#, "&", "& ")
+:SET &I_EncodedData# = "&I_EncodedData#&I_Line#"]]></process>
+      </row>
+   </scripts>
+</jobi>

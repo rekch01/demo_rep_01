@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scri>
+   <metadata>
+      <row>
+         <version>12.2.0</version>
+      </row>
+   </metadata>
+   <general_attributes>
+      <row>
+         <minimum_ae_version>11.2</minimum_ae_version>
+         <auto_deactivation>A</auto_deactivation>
+         <child_flags>00000000000000000000000000000000</child_flags>
+         <ert>1</ert>
+         <last_runtimes>AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</last_runtimes>
+         <max_allowed_retcode>3</max_allowed_retcode>
+         <max_parallel_action>1</max_parallel_action>
+         <mrt_time>000000</mrt_time>
+         <name>PKG.WAIT.EXT.DEP.REMOTE.JOB</name>
+         <has_prompts>1</has_prompts>
+         <type>SCRI</type>
+         <inherit_output_filter>N</inherit_output_filter>
+         <queue>CLIENT_QUEUE</queue>
+         <description>Wait for Remote Job until has been finished</description>
+         <versioning_id>614023122</versioning_id>
+      </row>
+   </general_attributes>
+   <scripts>
+      <row>
+         <process><![CDATA[
+:SET &CRLF# = UC_CRLF()
+
+:SET &Report# = &PS_JOBREPORT#
+
+:INC PKG.JI.DECODE.TEXT.REMOTE.JOB
+
+
+:PRINT ""
+:PRINT "******************************************************************************************"
+:PRINT "Report from the remote job execution"
+:SET &RepLen# = STR_LENGTH(&Report#)
+!:P "RepLen: &RepLen#"
+:IF &RepLen# > 1020
+:  SET &Pointer# = 1
+:  WHILE &Pointer# < &RepLen#
+:    SET &DataLen# = &Pointer# + 1020
+:    SET &PrepData# = STR_CUT(&Report#, &Pointer#, &DataLen#)
+:    PRINT "&CRLF#&PrepData#"
+:    SET &Pointer# = &Pointer# + 1020
+:  ENDWHILE
+:ELSE
+:  PRINT "&CRLF#&Report#"
+:ENDIF
+:PRINT "End of the remote job execution"
+:PRINT ""
+
+:IF &PS_JOBSTATUS# = "ERROR"
+:  PRINT "###REMOTEJOB ERROR###"
+!:  EXIT 3
+:ENDIF]]></process>
+      </row>
+   </scripts>
+   <script_attributes>
+      <row>
+         <activation_at_runtime>1</activation_at_runtime>
+      </row>
+   </script_attributes>
+   <prompt_set_list>
+      <row>
+         <line_number>1</line_number>
+         <prompt_set>PKG.PRPT.WAIT.FINALIZE.REMOTE.JOB</prompt_set>
+         <display_order>1</display_order>
+      </row>
+   </prompt_set_list>
+   <prompt_set_defaults>
+      <row>
+         <prompt_set_element_number>1</prompt_set_element_number>
+         <prompt_set>PKG.PRPT.WAIT.FINALIZE.REMOTE.JOB</prompt_set>
+         <variable_name>PS_JOBREPORT#</variable_name>
+      </row>
+      <row>
+         <prompt_set_element_number>1</prompt_set_element_number>
+         <prompt_set>PKG.PRPT.WAIT.FINALIZE.REMOTE.JOB</prompt_set>
+         <variable_name>PS_JOBSTATUS#</variable_name>
+      </row>
+   </prompt_set_defaults>
+   <rollback_definitions>
+      <row>
+      </row>
+   </rollback_definitions>
+</scri>

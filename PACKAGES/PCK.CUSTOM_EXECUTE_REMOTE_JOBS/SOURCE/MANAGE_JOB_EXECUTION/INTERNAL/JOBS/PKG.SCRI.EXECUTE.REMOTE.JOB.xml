@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scri>
+   <metadata>
+      <row>
+         <version>12.2.0</version>
+      </row>
+   </metadata>
+   <general_attributes>
+      <row>
+         <minimum_ae_version>11.2</minimum_ae_version>
+         <auto_deactivation>A</auto_deactivation>
+         <child_flags>00000000000000000000000000000000</child_flags>
+         <ert>1</ert>
+         <last_runtimes>AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</last_runtimes>
+         <max_allowed_retcode>2</max_allowed_retcode>
+         <max_parallel_action>1</max_parallel_action>
+         <mrt_time>000000</mrt_time>
+         <name>PKG.SCRI.EXECUTE.REMOTE.JOB</name>
+         <type>SCRI</type>
+         <inherit_output_filter>N</inherit_output_filter>
+         <queue>CLIENT_QUEUE</queue>
+         <description>Execute and Wait for Remote Job</description>
+         <versioning_id>795363255</versioning_id>
+      </row>
+   </general_attributes>
+   <scripts>
+      <row>
+         <process><![CDATA[! 2000 is the limitaion by REST
+:SET &MAX_REPORT_LEN# = 2000
+
+:SET &I_EncodedData# = ""
+:PSET &RemoteJob_RUNID# = ACTIVATE_UC_OBJECT(&PS_JOBNAME#,WAIT,,,,PASS_VALUES,"&PS_QUEUE_NAME#","RE_&PS_JOBNAME#_&PS_JOBALIAS#")
+
+:IF &RemoteJob_RUNID# = 0
+:  SET &ERRNR# = SYS_LAST_ERR_NR()
+:  IF &ERRNR# = "0000000000020228"
+:    SET &MESSAGE# = "Unable to find/execute '&PS_JOBNAME#'"
+:  ELSE
+:    SET &ERRINS#  = SYS_LAST_ERR_INS()
+:    SET &MESSAGE# = GET_MSG_TXT(&ERRNR#,&ERRINS#)
+:  ENDIF
+
+:  PSET &REMOTEJOB_REPORT# = "ERROR while running remote job: &PS_JOBNAME#, '&MESSAGE#'"
+:  PSET &REMOTEJOB_JOBSTATUS# = "ERROR"
+:ELSE
+
+:  SET &RJ_RETCODE# = GET_UC_OBJECT_STATUS(,&RemoteJob_RUNID#,RETCODE)
+:  IF &RJ_RETCODE# = 0
+:    PSET &REMOTEJOB_JOBSTATUS# = "OK"
+:  ELSE
+:   PSET &REMOTEJOB_JOBSTATUS# = "ERROR":
+:  ENDIF
+
+:  SET &RawReport# = 0
+:  SET &REP_HND# = PREP_PROCESS_REPORTLIST(&RemoteJob_RUNID#)
+:  PROCESS &REP_HND#
+:    SET &REP# = GET_PROCESS_LINE(&REP_HND#, 1)
+:    SET &REP_TYPE# = "&REP_TYPE#,&REP#"
+:  ENDPROCESS
+
+:  IF STR_FIND( &REP_TYPE#, "REP") > 0
+:    SET &HND# = PREP_PROCESS_REPORT(,&RemoteJob_RUNID#, "REP")
+:  ELSE
+:    SET &HND# = PREP_PROCESS_REPORT(,&RemoteJob_RUNID#, "ACT")
+:  ENDIF
+:  PROCESS &HND#
+:     SET &Line# = GET_PROCESS_LINE(&HND#)
+:     IF STR_LENGTH(&I_EncodedData#) > 0
+:       SET &I_Line# = "#LF#&Line#"
+:     ELSE
+:       SET &I_Line# = &Line#
+:     ENDIF
+:     INC PKG.JI.ENCODE.TEXT.REMOTE.JOB
+:ENDPROCESS
+
+:  SET &RepLen# = STR_LENGTH(&I_EncodedData#)
+:  IF &RepLen# > &MAX_REPORT_LEN#
+:    SET &CutBegin# = &RepLen# - &MAX_REPORT_LEN#
+:    SET &I_EncodedData# = STR_CUT(&I_EncodedData#, &CutBegin#)
+:    SET &I_EncodedData# = "....&I_EncodedData#"
+:  ENDIF
+
+:  PSET &REMOTEJOB_REPORT# = &I_EncodedData#
+
+:ENDIF
+
+]]></process>
+      </row>
+   </scripts>
+   <script_attributes>
+      <row>
+      </row>
+   </script_attributes>
+   <rollback_definitions>
+      <row>
+      </row>
+   </rollback_definitions>
+</scri>

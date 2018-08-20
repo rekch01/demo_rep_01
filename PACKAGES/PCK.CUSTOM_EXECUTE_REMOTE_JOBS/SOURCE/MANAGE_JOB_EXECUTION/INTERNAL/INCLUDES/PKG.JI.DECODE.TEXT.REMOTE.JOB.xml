@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jobi>
+   <metadata>
+      <row>
+         <version>12.2.0</version>
+      </row>
+   </metadata>
+   <general_attributes>
+      <row>
+         <minimum_ae_version>11.2</minimum_ae_version>
+         <child_flags>00000000000000000000000000000000</child_flags>
+         <last_runtimes>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</last_runtimes>
+         <name>PKG.JI.DECODE.TEXT.REMOTE.JOB</name>
+         <type>JOBI</type>
+         <description>Decode text from REST parameter</description>
+         <versioning_id>-32651742</versioning_id>
+      </row>
+   </general_attributes>
+   <scripts>
+      <row>
+         <process><![CDATA[
+:SET &Report# = STR_SUBSTITUTE( &Report#, "#DQ#", """")
+:SET &Report# = STR_SUBSTITUTE( &Report#, "#LF#", &CRLF#)
+:SET &Report# = STR_SUBSTITUTE( &Report#, "#CO#", "{")
+:SET &Report# = STR_SUBSTITUTE( &Report#, "#CC#", "}")
+:SET &Report# = STR_SUBSTITUTE( &Report#, "#BS#", "\")
+]]></process>
+      </row>
+   </scripts>
+</jobi>

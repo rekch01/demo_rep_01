@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jobs>
+   <metadata>
+      <row>
+         <version>12.2.0</version>
+      </row>
+   </metadata>
+   <general_attributes>
+      <row>
+         <minimum_ae_version>11.2</minimum_ae_version>
+         <auto_deactivation>A</auto_deactivation>
+         <child_flags>00000000000000000000000000000000</child_flags>
+         <ert>4</ert>
+         <platform>CIT</platform>
+         <last_runtimes>BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</last_runtimes>
+         <max_parallel_action>2</max_parallel_action>
+         <mrt_time>000000</mrt_time>
+         <name>PKG.REST.TRIGGER.REMOTE.JOB</name>
+         <type>JOBS</type>
+         <inherit_output_filter>N</inherit_output_filter>
+         <queue>CLIENT_QUEUE</queue>
+         <description>Trigger Job on an external AE</description>
+         <versioning_id>-1205869992</versioning_id>
+      </row>
+   </general_attributes>
+   <scripts>
+      <row>
+         <pre_process><![CDATA[:SET &AE_URL# = GET_VAR( "PKG.VARA.AE.REST.PARAMS.REMOTE.JOB", "&PS_AE#", 2)
+:SET &OWN_AE_URL# = GET_VAR( "PKG.VARA.AE.REST.PARAMS.REMOTE.JOB", "SOURCE_AE_REST", 2)
+
+:IF STR_LENGTH(&PS_JOBALIAS#) > 1
+:  SET &ALIAS# = "&PS_JOBALIAS#_&ID#"
+:ELSE
+:  SET &ALIAS# = "REMOTE_JOB_EXEC_&ID#"
+:ENDIF
+
+:SET &I_EncodedData# = ""
+:SET &I_Line# = &PS_VALUE_1#
+:INC PKG.JI.ENCODE.TEXT.REMOTE.JOB
+:SET &Value_1# = &I_EncodedData#
+
+:SET &I_EncodedData# = ""
+:SET &I_Line# = &PS_VALUE_2#
+:INC PKG.JI.ENCODE.TEXT.REMOTE.JOB
+:SET &Value_2# = &I_EncodedData#
+
+:SET &I_EncodedData# = ""
+:SET &I_Line# = &PS_VALUE_3#
+:INC PKG.JI.ENCODE.TEXT.REMOTE.JOB
+:SET &Value_3# = &I_EncodedData#
+
+:SET &I_EncodedData# = ""
+:SET &I_Line# = &PS_VALUE_4#
+:INC PKG.JI.ENCODE.TEXT.REMOTE.JOB
+:SET &Value_4# = &I_EncodedData#
+
+:SET &I_EncodedData# = ""
+:SET &I_Line# = &PS_VALUE_5#
+:INC PKG.JI.ENCODE.TEXT.REMOTE.JOB
+:SET &Value_5# = &I_EncodedData#]]></pre_process>
+      </row>
+      <row>
+         <post_process><![CDATA[:SET &ChkJobRunID# = GET_SCRIPT_VAR ("REMOTE_RUNID#")
+:IF STR_LENGTH(&ChkJobRunID# ) <= 1
+:  MODIFY_STATE RETCODE=2
+:ENDIF]]></post_process>
+      </row>
+   </scripts>
+   <job_attributes>
+      <row>
+         <activation_at_runtime>1</activation_at_runtime>
+         <platform>CIT</platform>
+         <agent>&amp;REST_AGENT#</agent>
+         <type>WEBSERVICEREST</type>
+         <optional_reports>PLOG</optional_reports>
+         <job_report_path>2</job_report_path>
+         <sub_type>REST</sub_type>
+      </row>
+   </job_attributes>
+   <extended_values>
+      <row>
+         <type>2</type>
+         <name>componentName</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_auth_aws_accesskey</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_auth_aws_secret_accesskey</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_auth_aws_sign_version</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_auth_basic_host</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_auth_basic_password</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_auth_basic_port</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_auth_basic_preemptive</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_auth_basic_realm</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_auth_basic_username</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_auth_method</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_auth_oauth_clientkey</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_auth_oauth_clientsecret</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_auth_oauth_refresh_token</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_auth_oauth_refresh_uri</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_auth_oauth_signature_type</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_auth_oauth_token</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_auth_oauth_token_secret</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_auth_oauth_verifier</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_auth_oauth_version_method</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_connection_timeout</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_endpoint_url</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_follow_redirects</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_from_prompts</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_proxy_auth_method</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_proxy_host</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_proxy_password</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_proxy_port</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_proxy_realm</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_proxy_type</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_proxy_username</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>conn_read_timeout</name>
+         <value>WebServiceRest</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>connectTimeout</name>
+         <value>30</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>curl</name>
+         <value>30</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>file</name>
+         <value>30</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>isCurl</name>
+         <value>false</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>jobHeaders</name>
+         <value>false</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>jobQuery</name>
+         <value>false</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>mediaType</name>
+         <value>application/json</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>method</name>
+         <value>POST</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>multiPart</name>
+         <value>false</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>multiPartResp</name>
+         <value>false</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>partName</name>
+         <value>Part 1</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>request_part_0_mediaType</name>
+         <value>application/json</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>request_part_0_partName</name>
+         <value>Part 1</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>request_part_0_requestDataSource</name>
+         <value>text</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>request_part_0_requestTab_data_1</name>
+         <value>A{</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>request_part_0_requestTab_data_10</name>
+         <value>A  "PS_QUEUE_NAME#": "&amp;PS_QUEUE_NAME#",</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>request_part_0_requestTab_data_11</name>
+         <value>A  "PS_JOBSTATUS": "ACTIVE",</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>request_part_0_requestTab_data_12</name>
+         <value>A  "PS_JOBPARAMS#": "",</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>request_part_0_requestTab_data_13</name>
+         <value>A  "PS_HOSTNAME_PORT#": "&amp;OWN_AE_URL#/ae/api/v1/&amp;$CLIENT#/executions/",</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>request_part_0_requestTab_data_14</name>
+         <value>A  "PS_VALUE_1#": "&amp;Value_1#",</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>request_part_0_requestTab_data_15</name>
+         <value>A  "PS_VALUE_2#": "&amp;Value_2#",</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>request_part_0_requestTab_data_16</name>
+         <value>A  "PS_VALUE_3#": "&amp;Value_3#",</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>request_part_0_requestTab_data_17</name>
+         <value>A  "PS_VALUE_4#": "&amp;Value_4#",</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>request_part_0_requestTab_data_18</name>
+         <value>A  "PS_VALUE_5#": "&amp;Value_5#"</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>request_part_0_requestTab_data_19</name>
+         <value>A }</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>request_part_0_requestTab_data_2</name>
+         <value>A "object_name": "PCK.CUSTOM_EXECUTE_REMOTE_JOBS.PUB.ACTION.MANAGE_JOB_EXECUTION",</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>request_part_0_requestTab_data_20</name>
+         <value>A}</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>request_part_0_requestTab_data_3</name>
+         <value>A  "execution_option": "execute",</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>request_part_0_requestTab_data_4</name>
+         <value>A  "queue": "&amp;PS_QUEUE_NAME#",</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>request_part_0_requestTab_data_5</name>
+         <value>A  "alias": "&amp;ALIAS#",</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>request_part_0_requestTab_data_6</name>
+         <value>A  "inputs":</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>request_part_0_requestTab_data_7</name>
+         <value>A {</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>request_part_0_requestTab_data_8</name>
+         <value>A  "PS_JOBNAME#": "&amp;PS_JOBNAME#",</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>request_part_0_requestTab_data_9</name>
+         <value>A  "PS_JOBALIAS#": "&amp;ID#",</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>requestDataSource</name>
+         <value>text</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>requestReports</name>
+         <value>false</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>resource</name>
+         <value>false</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>response_part_0_file</name>
+         <value>false</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>response_part_0_script_0_code_0</name>
+         <value>$.run_id</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>response_part_0_script_0_queryType</name>
+         <value>JSONPath</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>response_part_0_script_0_resourceName</name>
+         <value>&amp;REMOTE_RUNID#</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>response_part_0_script_0_saveTo</name>
+         <value>variable</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>response_part_0_script_0_useArray</name>
+         <value>false</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>responseReport</name>
+         <value>false</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>responseTimeout</name>
+         <value>60</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>responseToJobLog</name>
+         <value>true</value>
+      </row>
+      <row>
+         <is_connection>1</is_connection>
+         <type>2</type>
+         <name>restConnection</name>
+         <value>PKG.CONN.AE.REST.TRIGGER.REMOTE.EXEC.REMOTE.JOB</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>runType</name>
+         <value>REST</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>tracePerformance</name>
+         <value>false</value>
+      </row>
+      <row>
+         <type>2</type>
+         <name>uriOverride</name>
+         <value>&amp;AE_URL#/ae/api/v1/&amp;PS_CLIENT#/executions</value>
+      </row>
+   </extended_values>
+   <rollback_definitions>
+      <row>
+      </row>
+   </rollback_definitions>
+</jobs>
