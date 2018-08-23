@@ -23,7 +23,11 @@
    </general_attributes>
    <scripts>
       <row>
-         <process><![CDATA[! insert these lines in your script to determine if an error occurred
+         <process><![CDATA[ping localhost -n 10 >nul
+
+
+
+! insert these lines in your script to determine if an error occurred
 !
 ! @set retcode=%errorlevel%
 ! @if NOT %ERRORLEVEL% == 0 goto :retcode
@@ -45,4 +49,8 @@
          <win_cmd></win_cmd>
       </row>
    </job_attributes>
+   <rollback_definitions>
+      <row>
+      </row>
+   </rollback_definitions>
 </jobs>
