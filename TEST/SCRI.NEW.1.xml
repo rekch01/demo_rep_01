@@ -23,7 +23,10 @@
    </general_attributes>
    <scripts>
       <row>
-         <process>:SET &amp;RUNID# = ACTIVATE_UC_OBJECT(,,,,,PASS_VALUES,,)</process>
+         <process><![CDATA[:SET &RUNID# = ACTIVATE_UC_OBJECT(,,,,,PASS_VALUES,,)
+:print ZZZ
+
+!TTT]]></process>
       </row>
    </scripts>
    <script_attributes>
