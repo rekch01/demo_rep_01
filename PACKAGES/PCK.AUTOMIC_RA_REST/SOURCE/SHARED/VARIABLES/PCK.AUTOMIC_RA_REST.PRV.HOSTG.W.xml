@@ -31,5 +31,17 @@
          <agent>*</agent>
          <type>F</type>
       </row>
+      <row>
+         <archive_key1>*</archive_key1>
+         <archive_key2>*</archive_key2>
+         <role>*</role>
+         <hardware>*</hardware>
+         <line_number>2</line_number>
+         <agent>RA_WEBSERVICE_REST</agent>
+         <software>*</software>
+         <software_version>*</software_version>
+         <type>H</type>
+         <version>*</version>
+      </row>
    </agent_group_filters>
 </hostg>

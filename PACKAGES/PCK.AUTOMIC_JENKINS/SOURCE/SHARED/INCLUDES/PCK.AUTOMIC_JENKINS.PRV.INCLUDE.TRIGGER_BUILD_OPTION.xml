@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jobi>
+   <metadata>
+      <row>
+         <version>12.2.0</version>
+      </row>
+   </metadata>
+   <general_attributes>
+      <row>
+         <minimum_ae_version>11.2</minimum_ae_version>
+         <child_flags>00000000000000000000000000000000</child_flags>
+         <last_runtimes>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</last_runtimes>
+         <name>PCK.AUTOMIC_JENKINS.PRV.INCLUDE.TRIGGER_BUILD_OPTION</name>
+         <type>JOBI</type>
+         <versioning_id>-503152125</versioning_id>
+      </row>
+   </general_attributes>
+   <scripts>
+      <row>
+         <process><![CDATA[:SET &UC4RB_CI_OPTION# = ''
+
+:IF &UC4RB_CI_USERNAME# <> ''
+:  SET &UC4RB_CI_OPTION# = STR_CAT(&UC4RB_CI_OPTION#, '-u &UC4RB_CI_USERNAME# ')
+:ENDIF
+
+:IF &UC4RB_CI_PASSWORD# <> ''
+:  SET &UC4RB_CI_OPTION# = STR_CAT(&UC4RB_CI_OPTION#, '-p &UC4RB_CI_PASSWORD# ')
+:ENDIF
+
+:IF &UC4RB_CI_PROXY_HOSTNAME# <> ''
+:  SET &UC4RB_CI_OPTION# = STR_CAT(&UC4RB_CI_OPTION#, '-proxyHost &UC4RB_CI_PROXY_HOSTNAME# ')
+:ENDIF
+
+:IF &UC4RB_CI_PROXY_HOST_PORT# <> ''
+:  SET &UC4RB_CI_OPTION# = STR_CAT(&UC4RB_CI_OPTION#, '-proxyPort &UC4RB_CI_PROXY_HOST_PORT# ')
+:ENDIF
+
+:IF &UC4RB_CI_PROXY_USERNAME# <> ''
+:  SET &UC4RB_CI_OPTION# = STR_CAT(&UC4RB_CI_OPTION#, '-proxyUser &UC4RB_CI_PROXY_USERNAME# ')
+:ENDIF
+
+:IF &UC4RB_CI_PROXY_PASSWORD# <> ''
+:  SET &UC4RB_CI_OPTION# = STR_CAT(&UC4RB_CI_OPTION#, '-proxyPass &UC4RB_CI_PROXY_PASSWORD# ')
+:ENDIF
+
+:IF &UC4RB_CI_TOKEN# <> ''
+:  SET &UC4RB_CI_OPTION# = STR_CAT(&UC4RB_CI_OPTION#, '--token &UC4RB_CI_TOKEN# ')
+:ENDIF
+
+:IF &UC4RB_CI_DELAY# <> ''
+:  SET &UC4RB_CI_OPTION# = STR_CAT(&UC4RB_CI_OPTION#, '-delay &UC4RB_CI_DELAY# ')
+:ENDIF
+
+:IF &UC4RB_CI_PARAMETERS# <> ''
+:  SET &UC4RB_CI_OPTION# = STR_CAT(&UC4RB_CI_OPTION#, '-param &UC4RB_CI_PARAMETERS# ')
+:ENDIF
+
+:IF &UC4RB_CI_WAIT_BUILD_FINISH# = 'YES'
+:  SET &UC4RB_CI_OPTION# = STR_CAT(&UC4RB_CI_OPTION#, '-w ')
+:ENDIF]]></process>
+      </row>
+   </scripts>
+</jobi>

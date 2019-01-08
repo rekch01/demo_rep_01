@@ -29,6 +29,16 @@
    <static_values>
       <row>
          <client>6000</client>
+         <value1>Automic Jenkins</value1>
+         <value2>1.1.6</value2>
+         <value3>PCK.ITPA_SHARED ~&gt; 1.1</value3>
+         <value4>Continuous Integration</value4>
+         <value5>Action Pack</value5>
+         <validity_range>FREI</validity_range>
+         <key>PCK.AUTOMIC_JENKINS</key>
+      </row>
+      <row>
+         <client>6000</client>
          <value1>Rapid Automation REST base Pack</value1>
          <value2>1.0.0</value2>
          <value3>PCK.ITPA_SHARED ~&gt; 1.1</value3>
